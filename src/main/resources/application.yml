@@ -1,3 +1,28 @@
 spring:
   application:
     name: rag-bedrock
+  task:
+    scheduling:
+      pool:
+        size: 2
+  datasource:
+    url: jdbc:oracle:thin:@//host:1521/XEPDB1
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: oracle.jdbc.OracleDriver
+aws:
+  s3:
+    bucket-name: mon-bucket-rag
+    prefix: oracle-export/
+
+bedrock:
+  knowledge-base:
+    id: XXXXXXXXXX          # ID de ta Knowledge Base Bedrock
+    data-source-id: YYYYYY  # ID de la data source S3 configurée dans Bedrock
+    model-arn: arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-5-sonnet-20241022-v2:0
+
+export:
+  source-table: source_docs
+  text-column: contenu
+  output-dir: /tmp/oracle-export
+
